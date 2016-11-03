@@ -23,7 +23,7 @@ namespace SurfaceCharts
         private Color titleColor = Color.Black;
         private string xLabel = "real(z)";
         private string yLabel = "imag(z)";
-        private string zLabel = "Imaginary part of Airy function";
+        private string zLabel = "Imaginary part of Airy function Ai(z)";
         private Font labelFont = new Font("Times New Roman", 10, FontStyle.Regular);
         private Color labelColor = Color.Black;
         private float elevation = 30;
