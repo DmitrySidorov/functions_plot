@@ -37,14 +37,16 @@
             this.PlotPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PlotPanel.Location = new System.Drawing.Point(0, 0);
             this.PlotPanel.Name = "PlotPanel";
-            this.PlotPanel.Size = new System.Drawing.Size(728, 579);
+            this.PlotPanel.Size = new System.Drawing.Size(765, 675);
             this.PlotPanel.TabIndex = 0;
+            this.PlotPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlotPanel_MouseDown);
+            this.PlotPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PlotPanel_MouseMove);
             // 
             // SurfaceChartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 579);
+            this.ClientSize = new System.Drawing.Size(765, 675);
             this.Controls.Add(this.PlotPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SurfaceChartForm";

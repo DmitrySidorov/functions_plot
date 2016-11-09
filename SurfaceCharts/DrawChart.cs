@@ -227,50 +227,58 @@ namespace SurfaceCharts
 
         private void AddMesh(Graphics g, DataSeries ds, ChartStyle cs)
         {
-            Pen aPen = new Pen(ds.LineStyle.LineColor,
-            ds.LineStyle.Thickness);
+            Pen aPen = new Pen(ds.LineStyle.LineColor, ds.LineStyle.Thickness);
+
             aPen.DashStyle = ds.LineStyle.Pattern;
+
             SolidBrush aBrush = new SolidBrush(Color.White);
+
             Matrix3 m = Matrix3.AzimuthElevation(cs.Elevation, cs.Azimuth);
             PointF[] pta = new PointF[4];
             Point3[,] pts = ds.PointArray;
+
             // Find the minumum and maximum z values:
             float zmin = ds.ZDataMin();
             float zmax = ds.ZDataMax();
+
             // Perform transformations on points:
             for (int i = 0; i < pts.GetLength(0); i++)
             {
-
                 for (int j = 0; j < pts.GetLength(1); j++)
                 {
                     pts[i, j].Transform(m, form1, cs);
                 }
             }
+
             // Draw mesh:
             for (int i = 0; i < pts.GetLength(0) - 1; i++)
             {
                 for (int j = 0; j < pts.GetLength(1) - 1; j++)
                 {
                     int ii = i;
+
                     if (cs.Azimuth >= -180 && cs.Azimuth < 0)
                     {
                         ii = pts.GetLength(0) - 2 - i;
                     }
+
                     pta[0] = new PointF(pts[ii, j].X, pts[ii, j].Y);
                     pta[1] = new PointF(pts[ii, j + 1].X, pts[ii, j + 1].Y);
-                    pta[2] = new PointF(pts[ii + 1, j + 1].X, pts[ii + 1,
-                    j + 1].Y);
+                    pta[2] = new PointF(pts[ii + 1, j + 1].X, pts[ii + 1, j + 1].Y);
                     pta[3] = new PointF(pts[ii + 1, j].X, pts[ii + 1, j].Y);
+
                     if (!IsHiddenLine)
                     {
                         g.FillPolygon(aBrush, pta);
                     }
+
                     if (IsColorMap)
                     {
                         Color color = AddColor(cs, pts[ii, j], zmin, zmax);
                         aPen = new Pen(color, ds.LineStyle.Thickness);
                         aPen.DashStyle = ds.LineStyle.Pattern;
                     }
+
                     g.DrawPolygon(aPen, pta);
                 }
             }

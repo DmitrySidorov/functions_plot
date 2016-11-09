@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -12,6 +13,12 @@ namespace SurfaceCharts
         DrawChart dc;
         ChartFunctions cf;
         ColorMap cm;
+
+        float X;
+        float Y;
+
+        float X_Start;
+        float Y_Start;
 
         public SurfaceChartForm()
         {
@@ -61,12 +68,29 @@ namespace SurfaceCharts
             }
             else
             {
-                cs.Elevation = 45;
-                cs.Azimuth = 45;
+                cs.Elevation = 45 - Y / 10;
+                cs.Azimuth = 45 + X / 10;
                 cf.Peak3D(ds, cs);
                 cs.AddChartStyle(g);
                 dc.AddChart(g, ds, cs, cs2d);
             }
+        }
+
+        private void PlotPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                X = X_Start - e.X;
+                Y = Y_Start - e.Y;
+
+                PlotPanel.Invalidate();
+            }
+        }
+
+        private void PlotPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            X_Start = e.X;
+            Y_Start = e.Y;
         }
     }
 }
